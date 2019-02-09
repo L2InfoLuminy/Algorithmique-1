@@ -1,0 +1,37 @@
+public class Main{
+
+    public static void main(String[] args){
+
+
+      LinkedList list1=new LinkedList();
+              list1.add(2);
+              list1.add(4);
+              list1.add(5);
+              LinkedList list2=new LinkedList();
+              list2.add(1);
+              list2.add(6);
+
+              listTrier=Fusion.fusionTrier(list1, list2
+   }
+   
+}
+
+
+
+  public static LinkedList fusionTrier(LinkedList <Integer> list,LinkedList <Integer> list2){
+        LinkedList listTrier = new LinkedList();
+
+       while(list.size()!= 0 && list2.size()!= 0 ) {
+           if(list.get(0)<list2.get(0))
+               listTrier.add(list.removeFirst());
+           else
+               listTrier.add(list2.removeFirst());
+           System.out.println(listTrier.getLast());
+       }
+       if( list2.size()!= 0 && list.size()==0)
+           listTrier.addAll(list2);
+       else
+           if( list.size()!= 0 && list2.size()==0)
+                listTrier.addAll(list);
+        return listTrier;
+    }
