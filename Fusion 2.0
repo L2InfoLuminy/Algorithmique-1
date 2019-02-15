@@ -1,0 +1,117 @@
+// Dans sequence
+
+    public static void PrintTab(LinkedList test){
+        System.out.print("[ ");
+        for(int i=0; i!=test.size(); i++)  {
+            System.out.print(test.get(i));
+            System.out.print(" ");
+        }
+        System.out.println(" ]\n");
+
+    }
+    
+    
+//---------------------------------------------
+// dans fusion
+//---------------------------------------------
+
+
+package com.company;
+
+import java.util.LinkedList;
+
+public class Fusion extends Main {
+
+    LinkedList <Object> linkedlist= new LinkedList<>();
+
+
+    public static /*static void*/ LinkedList  decomposition(LinkedList list){
+
+        int length= list.size();
+
+        int i = length / 2;                    // ---------- Début boucle initialisation des branches (listes chaînés)
+       // System.out.println("i="+i);
+
+        LinkedList arbreTrier= new LinkedList();
+        if(i==0) {
+            return list;//retourne une branche
+        }
+
+        else{
+        // ----- Initialisation
+        LinkedList rightlist = new LinkedList();
+        LinkedList leftlist = new LinkedList();
+
+
+        for (int n = 0; n!=length; ++n) {          //parcourt la liste
+            if (n < i)                            // ---------- Copie des valeurs de la sequence au branches
+                rightlist.add(list.poll());
+            else{
+                leftlist.add(list.poll());
+             //   System.out.println(" - leftlist ="+leftlist.get(n-i));
+                }
+        }
+
+                                                    // --------- Initialisation des variables
+
+           arbreTrier= fusionTrier( decomposition(rightlist),decomposition(leftlist)); //fusionne les arbes
+        }
+     return arbreTrier;           // retourner arbre trier
+    }
+
+
+
+    public static LinkedList fusionTrier(LinkedList <Integer> list,LinkedList <Integer> list2){
+        LinkedList listTrier = new LinkedList();
+
+       while(list.size()!= 0 && list2.size()!= 0 ) {
+           if(list.get(0)<list2.get(0))
+               listTrier.add(list.removeFirst());
+           else
+               listTrier.add(list2.removeFirst());
+       }
+       if( list2.size()!= 0 && list.size()==0)
+           listTrier.addAll(list2);
+       else
+           if( list.size()!= 0 && list2.size()==0)
+                listTrier.addAll(list);
+        return listTrier;
+    }
+}
+
+//-----------------------------------------------------------
+// dans le main
+//--------------------------------------------------------
+
+package com.company;
+
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class Main{
+
+    public static void main(String[] args){
+
+
+        Sequence list = new Sequence(8, 10);  // initialise la sequence
+
+
+        LinkedList listfusion= new LinkedList();  // initialise une liste chaîner
+        listfusion.addAll(Sequence.list);         // copy la sequence dans la liste chainer
+
+        Sequence.PrintTab(list);    // affiche la sequence
+
+        LinkedList listTrier=new LinkedList();  // créer une  liste trié
+        listTrier=Fusion.decomposition(listfusion);   // trie et en revoie dans la listTrier
+   
+
+        Sequence.PrintTab(listTrier);   // affiche la liste triée
+    }
+
+}
+
+
+
+
+
